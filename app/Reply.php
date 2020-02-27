@@ -22,4 +22,5 @@ class Reply extends Model
         return $time->formatDifference();
 
     }
+
 }

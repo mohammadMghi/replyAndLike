@@ -30,14 +30,15 @@
                     ارسال شده توسط {{$reply->user->name}} در {{$reply->created_at}}
                 </div>
                 <div id="like-btn-div">
-                    <button id="btn-{{$reply->id}}" onclick="addLike({{$reply->id}})" type="button" class="btn btn-success"></button>
+                    <button id="btn-{{$reply->id}}" onclick="check({{$reply->id}})" type="button" class="btn btn-success"></button>
                 </div>
                 <script>
-                    getDataLileBtn({{$reply->id}});
+                    getDataLikeBtn({{$reply->id}});
                 </script>
             </div>
         </div>
         @endforeach
+         
         <div class="col-md-8">
             <form class="mt-5" action="{{route('reply.store', $topic->id)}}" method="post">
                 @csrf

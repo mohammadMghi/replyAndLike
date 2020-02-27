@@ -72,10 +72,4 @@ class User extends Authenticatable
         $this->userStat->reply_count++;
         $this->userStat->save();
     }
-
-
-
-
-
-
 }

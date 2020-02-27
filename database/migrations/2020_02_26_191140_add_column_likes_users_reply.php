@@ -13,7 +13,13 @@ class AddColumnLikesUsersReply extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('likes_users', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('user_id');
+            $table->bigInteger('reply_id');
+            $table->timestamps();
+          
+        });
     }
 
     /**

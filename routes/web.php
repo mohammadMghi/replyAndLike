@@ -26,5 +26,9 @@ Route::post('topic/{topic}/reply', 'ReplyController@store')->name('reply.store')
 Route::get('badge/new', 'BadgeController@new')->name('badge.new');
 Route::post('badge', 'BadgeController@store')->name('badge.store');
 
-Route::get('point/{id}' , 'ReplyController@addPoint');
-Route::get('getPoint/{id}' , 'ReplyController@getPoint');
+Route::get('addlike/{reply_id}' , 'ReplyController@addlike');
+Route::get('countLike/{id_reply}' , 'ReplyController@countlike');
+Route::get('checkStatus/{id_reply}' , 'ReplyController@checkStatusLike');
+
+
+Route::get('dislike/{replyid}' , 'ReplyController@dislike');

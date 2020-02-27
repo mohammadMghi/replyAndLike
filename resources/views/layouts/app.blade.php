@@ -13,8 +13,8 @@
 
 
     <script type="application/javascript">
-        function getDataLileBtn(id) {
-            var url = "http://localhost:8000/getPoint/"+ id; //use any url that have json data  
+        function getDataLikeBtn(id) {
+            var url = "http://localhost:8000/countLike/" + id; //use any url that have json data  
             var request;
 
             if (window.XMLHttpRequest) {
@@ -25,8 +25,8 @@
             request.onreadystatechange = function() {
                 if (request.readyState == 4) {
                     var jsonObj = JSON.parse(request.responseText); //JSON.parse() returns JSON object  
-                    var elem = document.getElementById('btn-'+id);
-       
+                    var elem = document.getElementById('btn-' + id);
+
                     elem.innerHTML = jsonObj.point;
                 }
             }
@@ -34,12 +34,93 @@
             request.send();
         }
 
-        function addLike(id){
-            console.log(id);
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET", "../point/" + id, true);
-            xhttp.send();
-            getDataLileBtn(id);
+        function like(reply_id) {
+
+            var url = "http://localhost:8000/addlike/" + reply_id; //use any url that have json data  
+            var request;
+
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest(); //for Chrome, mozilla etc  
+            } else if (window.ActiveXObject) {
+                request = new ActiveXObject("Microsoft.XMLHTTP"); //for IE only  
+            }
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    var jsonObj = JSON.parse(request.responseText); //JSON.parse() returns JSON object
+
+                    if (request.readyState == 4) {
+                        var jsonObj = JSON.parse(request.responseText); //JSON.parse() returns JSON object
+                        //check sucess dislike or not ...
+                        if (jsonObj.status) {
+                            console.log('liked');
+                        } else {
+                            console.log('error');
+                        }
+                    }
+
+                }
+            }
+
+            request.open("GET", url, true);
+            request.send();
+            getDataLikeBtn(reply_id);
+
+        }
+
+        function disLike(reply_id) {
+            var url = "http://localhost:8000/dislike/" + reply_id; //use any url that have json data  
+            var request;
+
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest(); //for Chrome, mozilla etc  
+            } else if (window.ActiveXObject) {
+                request = new ActiveXObject("Microsoft.XMLHTTP"); //for IE only  
+            }
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    var jsonObj = JSON.parse(request.responseText); //JSON.parse() returns JSON object
+                    //check sucess dislike or not ...
+                    if (jsonObj.status) {
+                        console.log('dislied');
+                    } else {
+                        console.log('error');
+                    }
+                }
+            }
+            request.open("GET", url, true);
+            request.send();
+            getDataLikeBtn(reply_id);
+        }
+
+
+
+
+        function check(reply_id) {
+            var url = "http://localhost:8000/checkStatus/" + reply_id; //use any url that have json data  
+            var request;
+
+            if (window.XMLHttpRequest) {
+                request = new XMLHttpRequest(); //for Chrome, mozilla etc  
+            } else if (window.ActiveXObject) {
+                request = new ActiveXObject("Microsoft.XMLHTTP"); //for IE only  
+            }
+
+            request.onreadystatechange = function() {
+                if (request.readyState == 4) {
+                    var jsonObj = JSON.parse(request.responseText); //JSON.parse() returns JSON object
+                    if (jsonObj.status == true) {
+                        disLike(reply_id);
+
+                    } else {
+                        like(reply_id);
+
+                    }
+
+
+                }
+            }
+            request.open("GET", url, true);
+            request.send();
         }
     </script>
 
